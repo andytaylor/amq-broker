@@ -15,6 +15,9 @@ RUN su ansible
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
 RUN su ansible -c "mkdir /home/ansible/.ssh "
 RUN su ansible -c "ssh-keygen -t rsa -f /home/ansible/.ssh/id_rsa -N '' "
+ADD authorized_keys /root/.ssh/authorized_keys
+RUN chmod 700 /root/.ssh
+RUN chmod 600 /root/.ssh/authorized_keys
 ADD authorized_keys /home/ansible/.ssh/authorized_keys
 RUN chown ansible:ansible /home/ansible/.ssh/authorized_keys
 RUN su ansible -c "chmod 700 /home/ansible/.ssh  "
